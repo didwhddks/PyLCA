@@ -25,9 +25,7 @@ public:
   void unite(int u, int v) {
     u = find(u);
     v = find(v);
-    if (size[u] > size[v]) {
-      std::swap(u, v);
-    }
+    if (size[u] > size[v]) std::swap(u, v);
     par[u] = v;
     size[v] += size[u];
   }
@@ -36,9 +34,9 @@ private:
   std::vector<int> par, size;
 };
 
-struct LCA {
+class TarjanLCA {
 public:
-  LCA(int n = 0, int q = 0) {
+  TarjanLCA(int n = 0, int q = 0) {
     adj.assign(n + 1, std::vector<int>());
     anc.assign(n + 1, 0);
     ans.assign(q, 0);
@@ -61,17 +59,13 @@ public:
     vis[u] = 1;
     anc[u] = u;
     for (int v : adj[u]) {
-      if (vis[v]) {
-        continue;
-      }
+      if (vis[v]) continue;
       dfs(v);
       dsu.unite(u, v);
       anc[dsu.find(u)] = u;
     }
     for (auto& [v, idx] : qry[u]) {
-      if (!vis[v]) {
-        continue;
-      }
+      if (!vis[v]) continue;
       ans[idx] = anc[dsu.find(v)];
     }
   }

@@ -27,9 +27,7 @@ public:
       anc[u][i] = anc[anc[u][i - 1]][i - 1];
     }
     for (int v : adj[u]) {
-      if (v == p) {
-        continue;
-      }
+      if (v == p) continue;
       dfs(v, u);
     }
     tout[u] = ++time;
@@ -44,14 +42,10 @@ public:
     return tin[u] <= tin[v] && tout[v] <= tout[u];
   }
 
-  int query(int u, int v) {
-    if (is_ancestor(u, v)) {
-      return u;
-    }
-    if (is_ancestor(v, u)) {
-      return v;
-    }
-    for (int i = logN; ~i; --i) {
+  int getLCA(int u, int v) {
+    if (is_ancestor(u, v)) return u;
+    if (is_ancestor(v, u)) return v;
+    for (int i = logN; i >= 0; i--) {
       if (!is_ancestor(anc[u][i], v)) {
         u = anc[u][i];
       }
