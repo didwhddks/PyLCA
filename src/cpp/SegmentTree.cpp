@@ -55,4 +55,4 @@ T SegmentTree<T>::rangeQuery(int qL, int qR) {
   return rangeQuery(qL, qR, 1, 0, n - 1);
 }
 
-template class SegmentTree<Info>;
+template class SegmentTree<Info>; 

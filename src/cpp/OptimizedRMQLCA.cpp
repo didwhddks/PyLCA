@@ -5,7 +5,8 @@ OptimizedRMQLCA::OptimizedRMQLCA(int n) {
 }
 
 void OptimizedRMQLCA::init(int n) {
-  first.assign(n + 1, 0);
+  first.assign(n + 1, -1);
+  vis.assign(n + 1, 0);
   adj.assign(n + 1, std::vector<int>());
 }
 
@@ -14,15 +15,23 @@ void OptimizedRMQLCA::add_edge(int u, int v) {
   adj[v].emplace_back(u);
 }
 
-void OptimizedRMQLCA::dfs(int u, int p, int d) {
-  first[u] = euler_path.size();
-  euler_path.emplace_back(u);
-  depth.emplace_back(d);
-  for (int v : adj[u]) {
-    if (v == p) continue;
-    dfs(v, u, d + 1);
-    euler_path.emplace_back(u);
+void OptimizedRMQLCA::dfs(int u, int p) {
+  std::vector<std::pair<int, int>> stk;
+  stk.emplace_back(u, 0);
+  vis[u] = 1;
+  while (stk.size()) {
+    auto [x, d] = stk.back();
+    stk.pop_back();
+    euler_path.emplace_back(x);
     depth.emplace_back(d);
+    if (first[x] != -1) continue;
+    first[x] = euler_path.size() - 1;
+    for (auto y : adj[x]) {
+      if (vis[y]) continue;
+      vis[y] = 1;
+      stk.emplace_back(x, d);
+      stk.emplace_back(y, d + 1);
+    }
   }
 }
 

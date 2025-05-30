@@ -1,15 +1,17 @@
 #include "TarjanLCA.hpp"
 
 TarjanLCA::TarjanLCA(int n, int q) {
-  ans.assign(q, 0);
+  ans.resize(q);
   init(n);
 }
 
 void TarjanLCA::init(int n) {
   adj.assign(n + 1, std::vector<int>());
   anc.assign(n + 1, 0);
+  par.assign(n + 1, 0);
   qry.assign(n + 1, std::vector<std::pair<int, int>>());
   vis.assign(n + 1, false);
+  act.assign(n + 1, false);
   dsu = DSU(n);
 }
 
@@ -24,17 +26,32 @@ void TarjanLCA::add_query(int u, int v, int idx) {
 }
 
 void TarjanLCA::dfs(int u) {
+  std::vector<int> stk;
+  stk.push_back(u);
+  stk.push_back(u);
   vis[u] = 1;
-  anc[u] = u;
-  for (int v : adj[u]) {
-    if (vis[v]) continue;
-    dfs(v);
-    dsu.unite(u, v);
-    anc[dsu.find(u)] = u;
-  }
-  for (auto &[v, idx] : qry[u]) {
-    if (!vis[v]) continue;
-    ans[idx] = anc[dsu.find(v)];
+  while (stk.size()) {
+    auto x = stk.back();
+    stk.pop_back();
+    if (act[x]) {
+      for (auto &[y, idx] : qry[x]) {
+        if (!vis[y]) continue;
+        ans[idx] = anc[dsu.find(y)];
+      }
+      act[x] = 0;
+      dsu.unite(x, par[x]);
+      anc[dsu.find(par[x])] = par[x];
+      continue;
+    }
+    anc[x] = x;
+    act[x] = 1;
+    for (auto y : adj[x]) {
+      if (vis[y]) continue;
+      vis[y] = 1;
+      par[y] = x;
+      stk.push_back(y);
+      stk.push_back(y);
+    }
   }
 }
 

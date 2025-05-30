@@ -22,9 +22,9 @@ public:
   int getLCA(int u, int v) override;
 
 private:
-  std::vector<int> anc, ans;
+  std::vector<int> anc, ans, par;
   std::vector<std::vector<std::pair<int, int>>> qry;
-  std::vector<bool> vis;
+  std::vector<bool> vis, act;
   DSU dsu;
 };
 

@@ -18,16 +18,28 @@ void BinaryLiftingLCA::add_edge(int u, int v) {
 }
 
 void BinaryLiftingLCA::dfs(int u, int p) {
-  tin[u] = ++time;
+  std::vector<int> stk;
+  stk.push_back(u);
+  stk.push_back(u);
   anc[u][0] = p;
-  for (int i = 1; i <= logN; ++i) {
-    anc[u][i] = anc[anc[u][i - 1]][i - 1];
+  while (stk.size()) {
+    auto x = stk.back();
+    stk.pop_back();
+    if (tin[x] > 0) {
+      tout[x] = ++time;
+      continue;
+    }
+    tin[x] = ++time;
+    for (int i = 1; i <= logN; i++) {
+        anc[x][i] = anc[anc[x][i - 1]][i - 1];
+    }
+    for (int y : adj[x]) {
+        if (y == anc[x][0]) continue;
+        anc[y][0] = x;
+        stk.push_back(y);
+        stk.push_back(y);
+    }
   }
-  for (int v : adj[u]) {
-    if (v == p) continue;
-    dfs(v, u);
-  }
-  tout[u] = ++time;
 }
 
 void BinaryLiftingLCA::build() {
