@@ -5,12 +5,12 @@
 
 #include "BinaryLiftingLCA.hpp"
 #include "RMQLCA.hpp"
-#include "Optimized_RMQLCA.hpp"
+#include "OptimizedRMQLCA.hpp"
 #include "TarjanLCA.hpp"
 
 namespace py = pybind11;
 
-std::shared_ptr<LCA> create_lca(const std::string& method) {
+std::shared_ptr<LCA> createLCA(const std::string& method) {
   if (method == "binary_lifting") return std::make_shared<BinaryLiftingLCA>();
   else if (method == "tarjan") return std::make_shared<TarjanLCA>();
   else if (method == "rmq") return std::make_shared<RMQLCA>();
@@ -18,14 +18,14 @@ std::shared_ptr<LCA> create_lca(const std::string& method) {
   else throw std::invalid_argument("Unknown LCA method: " + method);
 }
 
-PYBIND11_MODULE(pylca, m) {
+PYBIND11_MODULE(_PyLCA, m) {
   m.doc() = "Python bindings for multiple LCA algorithms";
 
   py::class_<LCA, std::shared_ptr<LCA>>(m, "LCA")
-    .def("init", &LCA::init, "n"_a);
-    .def("add_edge", &LCA::add_edge, "u"_a, "v"_a);
-    .def("build", &LCA::build);
-    .def("getLCA", &LCA::getLCA, "u"_a, "v"_a);
+    .def("init", &LCA::init, py::arg("n"))
+    .def("add_edge", &LCA::add_edge, py::arg("u"), py::arg("v"))
+    .def("build", &LCA::build)
+    .def("getLCA", &LCA::getLCA, py::arg("u"), py::arg("v"));
 
   // Expose each concrete subclass
   py::class_<BinaryLiftingLCA, LCA, std::shared_ptr<BinaryLiftingLCA>>(m, "BinaryLifting")
@@ -37,12 +37,12 @@ PYBIND11_MODULE(pylca, m) {
   py::class_<RMQLCA, LCA, std::shared_ptr<RMQLCA>>(m, "RMQ")
     .def(py::init<>());
 
-  py::class_<Optimized_RMQLCA, LCA, std::shared_ptr<Optimized_RMQLCA>>(m, "OptimizedRMQ")
+  py::class_<OptimizedRMQLCA, LCA, std::shared_ptr<OptimizedRMQLCA>>(m, "OptimizedRMQ")
     .def(py::init<>());
 
   // Factory function
-  m.def("create_lca", &create_lca, 
-        "method"_a, 
+  m.def("createLCA", &createLCA, 
+        py::arg("method"),
         "Create an LCA solver instance based on the specified method. "
         "Available methods: 'binary_lifting', 'tarjan', 'rmq', 'optimized_rmq'.");
 }

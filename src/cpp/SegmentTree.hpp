@@ -16,7 +16,7 @@ struct Info {
 template <typename T>
 class SegmentTree {
 public:
-  SegmentTree(int n = 0);
+  SegmentTree(int n = 1);
 
   void init(int n);
   void pull(int i);

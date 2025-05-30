@@ -1,9 +1,13 @@
 #include "TarjanLCA.hpp"
 
 TarjanLCA::TarjanLCA(int n, int q) {
+  ans.assign(q, 0);
+  init(n);
+}
+
+void TarjanLCA::init(int n) {
   adj.assign(n + 1, std::vector<int>());
   anc.assign(n + 1, 0);
-  ans.assign(q, 0);
   qry.assign(n + 1, std::vector<std::pair<int, int>>());
   vis.assign(n + 1, false);
   dsu = DSU(n);

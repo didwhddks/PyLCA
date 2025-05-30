@@ -10,7 +10,7 @@
 
 class BinaryLiftingLCA : public LCA {
 public:
-  BinaryLiftingLCA(int n = 0);
+  BinaryLiftingLCA(int n = 1);
 
   void init(int n) override;
   void add_edge(int u, int v) override;

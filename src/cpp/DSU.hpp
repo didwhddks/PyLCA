@@ -6,7 +6,7 @@
 
 class DSU {
 public:
-  DSU(int n = 0);
+  DSU(int n = 1);
   
   int find(int x);
   void unite(int u, int v);

@@ -12,7 +12,7 @@
 
 class RMQLCA : public LCA {
 public:
-  RMQLCA(int n = 0);
+  RMQLCA(int n = 1);
 
   void init(int n) override;
   void add_edge(int u, int v) override;

@@ -1,7 +1,7 @@
 #include "SegmentTree.hpp"
 
 template <typename T>
-SegmentTree<T>::SegmentTree(int n = 0) {
+SegmentTree<T>::SegmentTree(int n) {
   init(n);
 }
 
@@ -54,3 +54,5 @@ template <typename T>
 T SegmentTree<T>::rangeQuery(int qL, int qR) {
   return rangeQuery(qL, qR, 1, 0, n - 1);
 }
+
+template class SegmentTree<Info>;

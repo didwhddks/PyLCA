@@ -11,7 +11,7 @@
 
 class OptimizedRMQLCA : public LCA {
 public:
-  OptimizedRMQLCA(int n = 0);
+  OptimizedRMQLCA(int n = 1);
   void init(int n) override;
   void add_edge(int u, int v) override;
   void dfs(int u = 1, int p = 0, int d = 0);

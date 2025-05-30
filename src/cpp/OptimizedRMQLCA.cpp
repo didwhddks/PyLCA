@@ -1,4 +1,4 @@
-#include "Optimized_RMQLCA.hpp"
+#include "OptimizedRMQLCA.hpp"
 
 OptimizedRMQLCA::OptimizedRMQLCA(int n) {
   init(n);
