@@ -43,7 +43,7 @@ void RMQLCA::init_RMQ() {
   }
 }
  
-void RMQLCA::build() {
+void RMQLCA::preprocess() {
   dfs();
   init_RMQ();
 }

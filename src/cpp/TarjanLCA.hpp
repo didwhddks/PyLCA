@@ -18,7 +18,7 @@ public:
   void add_edge(int u, int v) override;
   void add_query(int u, int v, int idx);
   void dfs(int u = 1);
-  void build() override;
+  void preprocess() override;
   int getLCA(int u, int v) override;
 
 private:

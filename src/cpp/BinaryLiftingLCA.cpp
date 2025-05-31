@@ -42,7 +42,7 @@ void BinaryLiftingLCA::dfs(int u, int p) {
   }
 }
 
-void BinaryLiftingLCA::build() {
+void BinaryLiftingLCA::preprocess() {
   dfs();
   tout[0] = ++time;
 }

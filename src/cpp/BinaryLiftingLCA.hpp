@@ -15,7 +15,7 @@ public:
   void init(int n) override;
   void add_edge(int u, int v) override;
   void dfs(int u = 1, int p = 0);
-  void build() override;
+  void preprocess() override;
   bool is_ancestor(int u, int v);
   int getLCA(int u, int v) override;
 

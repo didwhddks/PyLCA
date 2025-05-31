@@ -55,7 +55,7 @@ void TarjanLCA::dfs(int u) {
   }
 }
 
-void TarjanLCA::build() {
+void TarjanLCA::preprocess() {
   dfs();
 }
 

@@ -19,7 +19,7 @@ public:
   void build_block();
   void build_sparse_table() ;
   void precompute_in_block_RMQ();
-  void build() override;
+  void preprocess() override;
   int getLCA(int u, int v) override;
 
 private:

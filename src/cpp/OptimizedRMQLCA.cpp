@@ -88,7 +88,7 @@ void OptimizedRMQLCA::precompute_in_block_RMQ() {
   }
 }
 
-void OptimizedRMQLCA::build() {
+void OptimizedRMQLCA::preprocess() {
   dfs();
   precompute_log();
   build_block();
