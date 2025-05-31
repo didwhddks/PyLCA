@@ -1,7 +1,6 @@
 #include "TarjanLCA.hpp"
 
-TarjanLCA::TarjanLCA(int n, int q) {
-  ans.resize(q);
+TarjanLCA::TarjanLCA(int n) {
   init(n);
 }
 
@@ -21,6 +20,7 @@ void TarjanLCA::add_edge(int u, int v) {
 }
 
 void TarjanLCA::add_query(int u, int v, int idx) {
+  if (int(ans.size()) <= idx) ans.resize(idx + 1);
   qry[u].emplace_back(v, idx);
   qry[v].emplace_back(u, idx);
 }

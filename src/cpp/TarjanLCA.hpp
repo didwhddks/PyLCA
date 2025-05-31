@@ -12,9 +12,9 @@
 
 class TarjanLCA : public LCA {
 public:
-  TarjanLCA(int n = 1, int q = 1);
+  TarjanLCA(int n = 1);
 
-  void init(int n = 0) override;
+  void init(int n = 1) override;
   void add_edge(int u, int v) override;
   void add_query(int u, int v, int idx);
   void dfs(int u = 1);
